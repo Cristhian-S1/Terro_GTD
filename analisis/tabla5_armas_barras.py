@@ -23,32 +23,20 @@ tipo_conteo = df['WEAPTYPE1_TXT'].value_counts()
 arma_principal = tipo_conteo.index[0]
 sub_conteo = df[df['WEAPTYPE1_TXT'] == arma_principal]['WEAPSUBTYPE1_TXT'].value_counts().head(8)
 
-fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+fig, ax = plt.subplots(figsize=(10, 8))
 fig.suptitle('Tabla 5 — Armamento Utilizado en Ataques Terroristas', fontsize=15, fontweight='bold')
 
-# Panel izquierdo: tipos de arma principal
+# Tipos de arma principal
 colores_tipo = cm.RdYlBu_r(np.linspace(0.15, 0.85, len(tipo_conteo)))
-bars = axes[0].barh(tipo_conteo.index[::-1], tipo_conteo.values[::-1],
-                    color=colores_tipo, edgecolor='white', linewidth=0.5)
-axes[0].set_xlabel('Número de incidentes', fontsize=11)
-axes[0].set_title('Frecuencia por tipo de arma principal', fontsize=12)
-axes[0].grid(axis='x', linestyle='--', alpha=0.4)
+bars = ax.barh(tipo_conteo.index[::-1], tipo_conteo.values[::-1],
+               color=colores_tipo, edgecolor='white', linewidth=0.5)
+ax.set_xlabel('Número de incidentes', fontsize=11)
+ax.set_title('Frecuencia por tipo de arma principal', fontsize=12)
+ax.grid(axis='x', linestyle='--', alpha=0.4)
 for bar, val in zip(bars, tipo_conteo.values[::-1]):
-    axes[0].text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2,
-                 f'{val:,}', va='center', fontsize=9)
-axes[0].set_xlim(0, tipo_conteo.max() * 1.15)
-
-# Panel derecho: subtipos del arma más usada
-colores_sub = cm.Oranges(np.linspace(0.4, 0.9, len(sub_conteo)))
-bars2 = axes[1].barh(sub_conteo.index[::-1], sub_conteo.values[::-1],
-                     color=colores_sub, edgecolor='white', linewidth=0.5)
-axes[1].set_xlabel('Número de incidentes', fontsize=11)
-axes[1].set_title(f'Top subtipos de: {arma_principal}', fontsize=12)
-axes[1].grid(axis='x', linestyle='--', alpha=0.4)
-for bar, val in zip(bars2, sub_conteo.values[::-1]):
-    axes[1].text(bar.get_width() + 2, bar.get_y() + bar.get_height()/2,
-                 f'{val:,}', va='center', fontsize=9)
-axes[1].set_xlim(0, sub_conteo.max() * 1.18)
+    ax.text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2,
+            f'{val:,}', va='center', fontsize=9)
+ax.set_xlim(0, tipo_conteo.max() * 1.15)
 
 plt.tight_layout()
 plt.savefig('tabla5_armas_barras.png', dpi=150, bbox_inches='tight')

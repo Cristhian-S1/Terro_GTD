@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
 
-cols = ['CRIT1', 'CRIT2', 'CRIT3', 'DOUBTTERR', 'MULTIPLE', 'SUCCESS', 'SUICIDE']
+cols = ['CRIT1', 'CRIT2', 'CRIT3', 'DOUBTTERR', 'SUCCESS', 'SUICIDE']
 df = pd.read_excel('../GTD_5156.xlsx', usecols=cols)
 
 total = len(df)
@@ -20,7 +20,6 @@ etiquetas = {
     'CRIT2': 'Intención de\ncoaccionar',
     'CRIT3': 'Fuera del contexto\nde guerra legítima',
     'DOUBTTERR': 'Duda si es\nterrorismo',
-    'MULTIPLE': 'Parte de serie\nmúltiple',
     'SUCCESS': 'Ataque\nexitoso',
     'SUICIDE': 'Ataque\nsuicida',
 }

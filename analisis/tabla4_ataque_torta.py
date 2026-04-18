@@ -26,11 +26,11 @@ colores = [
     '#1E88E5','#8E24AA','#D81B60'
 ]
 
-fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+fig, ax = plt.subplots(figsize=(10, 8))
 fig.suptitle('Tabla 4 — Tipos de Ataque Terrorista', fontsize=15, fontweight='bold')
 
 # Torta principal
-wedges, texts, autotexts = axes[0].pie(
+wedges, texts, autotexts = ax.pie(
     top.values,
     labels=None,
     autopct=lambda p: f'{p:.1f}%' if p > 2 else '',
@@ -44,16 +44,14 @@ for at in autotexts:
     at.set_fontsize(9)
     at.set_fontweight('bold')
 
-axes[0].legend(
+ax.legend(
     wedges, [f'{k}\n({v:,})' for k, v in top.items()],
     title='Tipo de ataque',
     loc='lower left',
     fontsize=8,
     bbox_to_anchor=(-0.15, -0.05)
 )
-axes[0].set_title(f'Distribución de {len(df):,} incidentes', fontsize=12)
-
-# Barras de éxito y suicida por tipo (top 7)
+ax.set_title(f'Distribución de {len(df):,} incidentes', fontsize=12)
 
 plt.tight_layout()
 plt.savefig('tabla4_ataque_torta.png', dpi=150, bbox_inches='tight')
